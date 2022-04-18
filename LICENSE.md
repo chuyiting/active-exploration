@@ -1,9 +1,8 @@
 Active Exploration License  
 ============  
 
-**Inria** and **UCA** hold all the ownership rights on the *Software* named **active-exploration**.  
-The *Software* has been registered with the Agence pour la Protection des  
-Programmes (APP) under IDDN.FR.001.430020.000.S.P.2019.000.31235  
+**Inria** hold all the ownership rights on the *Software* named **active-exploration**.  
+The *Software* is in the process of being registered with the Agence pour la Protection des  Programmes (APP).
 
 The *Software* is still being developed by the *Licensor*.  
 
@@ -15,7 +14,7 @@ the *Software*.
 *Licensee* means any person or entity that uses the *Software* and distributes  
 its *Work*.  
 
-*Licensor* means the owners of the *Software*, i.e Inria and UCA  
+*Licensor* means the owners of the *Software*, i.e Inria 
 
 *Software* means the original work of authorship made available under this  
 License ie Active Exploration.  
