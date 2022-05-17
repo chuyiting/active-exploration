@@ -17,8 +17,9 @@ Abstract: *Neural rendering algorithms introduce a fundamentally new approach fo
 ## Compiling and Running
 
 1. Clone the repository with `--recursive` to get all the dependencies.
-2. Compile Mitsuba 2, following the [documentation](https://mitsuba2.readthedocs.io/en/latest/src/getting_started/compiling.html) make sure to have all the prerequisites. 
-3. If you are having issues with the Python scripts not finding the mitsuba/enoki module look at the Mitsuba 2 documentation above and at their [github](https://github.com/mitsuba-renderer/mitsuba2) 
+3. The custom Mitsuba 2 version is in the [ext](./ext/) folder and you need to compile it first.
+4. Compile Mitsuba 2, following the [documentation](https://mitsuba2.readthedocs.io/en/latest/src/getting_started/compiling.html) make sure to have all the prerequisites. 
+5. If you are having issues with the Python scripts not finding the mitsuba/enoki module look at the Mitsuba 2 documentation above and at their [github](https://github.com/mitsuba-renderer/mitsuba2) 
 
 You are ready to go!
 
