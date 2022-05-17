@@ -38,6 +38,7 @@ To interactively preview the neural rendering using the pretraine models run the
 --model_path <path-to-model.pth> 
 --metric l1
 ```
+The scene resolution is chosen with an RTX 3090 as a target device. For GPUs with lower memory try to lower the resolution of `previw_buffers.xml` and/or the spp.
 
 ## Training a new model
 
