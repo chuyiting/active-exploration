@@ -71,18 +71,6 @@ def apply_translation_from(params, v, positions_initial, id):
     unravel(new_positions, params[id])
     params.set_dirty(id)
 
-def write_image(gt, iteration, directory):
-    cv2.imwrite(directory + '/' + str(iteration) + 'image_output.exr', gt)
-
-
-def write_buffers(buffers, iteration, directory):
-    cv2.imwrite(directory + '/' + str(iteration) + 'albedo_output.exr', buffers[:, :, 0:3])
-    cv2.imwrite(directory + '/' + str(iteration) + 'normals_output.exr', buffers[:, :, 3:6])
-    cv2.imwrite(directory + '/' + str(iteration) + 'positions_output.exr', buffers[:, :, 6:9])
-    cv2.imwrite(directory + '/' + str(iteration) + 'wi_output.exr', buffers[:, :, 9:12])
-    cv2.imwrite(directory + '/' + str(iteration) + 'emission_output.exr', buffers[:, :, 12:15])
-    cv2.imwrite(directory + '/' + str(iteration) + 'alpha_output.exr', buffers[:, :, 15:16])
-
 
 def write_variable(variable, directory, name):
     f = open(directory + '/' + name + '.txt', 'a')

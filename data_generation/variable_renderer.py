@@ -307,6 +307,8 @@ class VariableRenderer:
         # Choose tonemapping for gt and emission
         if self.tonemap_type == 'log1p':
             tonemap = log1p
+        elif self.tonemap_type == 'n2n':
+            tonemap = n2n
         else:
             warnings.warn("Chosen tonemapping not supported")
 

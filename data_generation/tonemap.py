@@ -20,3 +20,14 @@ def log1p(x):
 def inv_log1p(y):
     x = np.exp(y) - 1
     return x
+
+
+def n2n(x):
+    y = (x / (1 + x))
+    return y
+
+
+def inv_n2n(y):
+    y = torch.clip(y, 0, 0.99)
+    x = y / (1 - y)
+    return x
