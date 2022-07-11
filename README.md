@@ -13,6 +13,7 @@ Abstract: *Neural rendering algorithms introduce a fundamentally new approach fo
 * 64-bit Python 3.8 and Pytorch 1.8.1 or later. Preferably use Miniconda for Python if you are having issues with Mitsuba 2.
 * CUDA Toolkit 10.2 or later.
 * For Python Libraries see environment.yml
+* A high end Nvidia GPU, all hyperparameters and scene configurations are set with an RTX 3090 in mind
 
 ## Compiling and Running
 
