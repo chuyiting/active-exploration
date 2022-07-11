@@ -14,14 +14,12 @@ import enoki
 from data_generation.variable_renderer import *
 from neural_rendering.utils import *
 from neural_rendering.utils import write_mc_states
-from neural_rendering.utils import sigmoid
-from neural_rendering.utils import compute_grad_norm
 from neural_rendering.utils import compute_reuse_prob
 from neural_rendering.generators.pixel_generator import PixelGenerator
 from neural_rendering.generators.positional_pixel_generator import PositionalPixelGenerator
 from neural_rendering.data import ConfigurableDataset
 from neural_rendering.losses import *
-from neural_rendering.samplers.mcmc_sampler import MarkovChainSampler
+from neural_rendering.train.samplers.mcmc_sampler import MarkovChainSampler
 
 import random
 import numpy as np

@@ -1,8 +1,8 @@
 import sys
 import os
 
-sys.path += ["..\\ext\\mitsuba2\\dist\\python"]
-os.environ["PATH"] += os.pathsep + "..\\ext\\mitsuba2\\dist"
+sys.path += ["..\\..\\ext\\mitsuba2\\dist\\python"]
+os.environ["PATH"] += os.pathsep + "..\\..\\ext\\mitsuba2\\dist"
 
 import mitsuba
 
