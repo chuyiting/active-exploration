@@ -21,8 +21,7 @@ def _render_helper(scene, spp=None, sensor_index=0):
 
     total_sample_count = ek.hprod(film_size) * spp
 
-    if sampler.wavefront_size() != total_sample_count:
-        sampler.seed(0, total_sample_count)
+    sampler.seed(0, total_sample_count)
 
     pos = ek.arange(UInt32, total_sample_count)
     pos //= spp
