@@ -1,9 +1,10 @@
 import numpy as np
+import cv2
 
-from mitsuba import Transform4f, Vector3f, UInt32, AnimatedTransform, ScalarTransform4f
-from drjit import Vector3f as sVector3f
+from mitsuba import Transform4f, Bitmap, Vector3f, UInt32, ScalarTransform4f
+from drjit.cuda import Array3f as sArray3f
+
 import drjit as dr
-
 
 
 # Convert flat array into a vector of arrays (will be included in next enoki release)
@@ -40,9 +41,9 @@ def set_translation(old_params, new_params, v, id):
 
 
 def set_sensor(sensor, origin, target, up=[0, 1, 0]):
-    sensor.set_world_transform(AnimatedTransform(ScalarTransform4f.look_at(sVector3f(origin[0], origin[1], origin[2]),
-                                                                           sVector3f(target[0], target[1], target[2]),
-                                                                           sVector3f(up[0], up[1], up[2]))))
+    sensor.set_world_transform(ScalarTransform4f.look_at(sArray3f(origin[0], origin[1], origin[2]),
+                                                                           sArray3f(target[0], target[1], target[2]),
+                                                                           sArray3f(up[0], up[1], up[2])))
 
 
 def get_values(params, id):

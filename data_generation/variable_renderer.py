@@ -3,11 +3,14 @@ import warnings
 from data_generation.utils import *
 import os
 import torch
-
-import drjit as dr
-from mitsuba import Bitmap, Struct, Thread, LogLevel, load_file, render
-from mitsuba import ScalarTransform4f, ScalarVector3f, AnimatedTransform
-from mitsuba import Vector3f as cVector3f
+import mitsuba
+from mitsuba import Bitmap, Struct
+from mitsuba import Thread, LogLevel
+from mitsuba import load_file
+from mitsuba import traverse
+from mitsuba import ScalarTransform4f, ScalarVector3f
+from drjit.cuda import Array3f as cVector3f
+#from mitsuba.python.autodiff import render_torch
 
 from data_generation.tonemap import *
 
@@ -43,11 +46,13 @@ class VariableRenderer:
 
         # Get the scene parameters
         params = traverse(scene)
-
+        #print(params)
         # Scene randomizable objects
         emitters = scene.emitters()
         shapes = scene.shapes()
-        bsdfs = scene.bsdfs()
+        #print(shapes)
+        print(scene)
+        bsdfs = shapes.bsdf()
         sensors = scene.sensors()
         shapegroups = scene.shapegroups()
 
@@ -146,7 +151,7 @@ class VariableRenderer:
 
                 if self.variables[i].is_environment():
                     # TODO: WIP implementation of rotating environment map, currently it is rotated in a fixed range
-                    self.variables[i].set_world_transform(AnimatedTransform(ScalarTransform4f.rotate(ScalarVector3f(0.0, 1.0, 0.0), 100 + custom_values[self.variables[i].id()][0] * 40)))
+                    self.variables[i].set_world_transform(ScalarTransform4f.rotate(ScalarVector3f(0.0, 1.0, 0.0), 100 + custom_values[self.variables[i].id()][0] * 40))
                 else:
                     param_id = self.variables[i].id() + '.radiance.value'
 
@@ -349,7 +354,7 @@ class VariableRenderer:
 
         return buffers, gt, custom_values
 
-    @dr.wrap_ad(source='torch', target='drjit')
+    #@dr.wrap_ad(source='torch', target='drjit')
     def get_custom_render_tensor(self, custom_values, need_image=True, need_buffers=True):
 
         # Setup the scene for the given custom  values and check intersection
@@ -358,7 +363,7 @@ class VariableRenderer:
         # Call the scene's integrator to render the loaded scene
         # render_torch(self.scene)
         # TODO the returning result is not of type TensorXf
-        result = render(self.scene)
+        result = mitsuba.render(self.scene)
 
         buffers = torch.tensor(data=[], device='cuda')
 
