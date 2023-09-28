@@ -7,16 +7,16 @@ import numpy as np
 import multiprocessing
 from tqdm import tqdm
 from multiprocessing import Pool
+import torch
 
-sys.path += ["..\\ext\\mitsuba2\\dist\\python"]
-os.environ["PATH"] += os.pathsep + "..\\ext\\mitsuba2\\dist"
+# sys.path += ["..\\ext\\mitsuba2\\dist\\python"]
+# os.environ["PATH"] += os.pathsep + "..\\ext\\mitsuba2\\dist"
 
-import mitsuba
+import mitsuba as mi
 
 # Set the desired mitsuba variant
-mitsuba.set_variant('gpu_rgb')
+mi.set_variant('gpu_rgb')
 
-import enoki
 
 from neural_rendering.utils import create_dir
 from data_generation.variable_renderer import write_variable
@@ -91,7 +91,10 @@ if __name__ == "__main__":
             # If one of the processes crashed repeat sample generation
             if any(proc.exitcode for proc in before):
                 # Release unused memory
-                enoki.cuda_malloc_trim()
+                # TODO find Dr. jit's version for memory release
+                # enoki.cuda_malloc_trim()
+                torch.cuda.empty_cache()
+                
                 # Restart pool
                 pool.terminate()
                 pool.join()

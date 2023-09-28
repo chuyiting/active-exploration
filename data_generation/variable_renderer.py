@@ -4,13 +4,10 @@ from data_generation.utils import *
 import os
 import torch
 
-from mitsuba.core import Bitmap, Struct
-from mitsuba.core import Thread, LogLevel
-from mitsuba.core.xml import load_file
-from mitsuba.python.util import traverse
-from mitsuba.core import ScalarTransform4f, ScalarVector3f, AnimatedTransform
-from enoki.cuda import Vector3f as cVector3f
-from mitsuba.python.autodiff import render_torch
+import drjit as dr
+from mitsuba import Bitmap, Struct, Thread, LogLevel, load_file, render
+from mitsuba import ScalarTransform4f, ScalarVector3f, AnimatedTransform
+from mitsuba import Vector3f as cVector3f
 
 from data_generation.tonemap import *
 
@@ -352,13 +349,16 @@ class VariableRenderer:
 
         return buffers, gt, custom_values
 
+    @dr.wrap_ad(source='torch', target='drjit')
     def get_custom_render_tensor(self, custom_values, need_image=True, need_buffers=True):
 
         # Setup the scene for the given custom  values and check intersection
         custom_values = self.setup_scene(custom_values)
 
         # Call the scene's integrator to render the loaded scene
-        result = render_torch(self.scene)
+        # render_torch(self.scene)
+        # TODO the returning result is not of type TensorXf
+        result = render(self.scene)
 
         buffers = torch.tensor(data=[], device='cuda')
 

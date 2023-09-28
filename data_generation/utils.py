@@ -1,28 +1,27 @@
 import numpy as np
-import cv2
 
-from mitsuba.core import Transform4f, Bitmap, Vector3f, UInt32, AnimatedTransform, ScalarTransform4f
-from enoki.scalar import Vector3f as sVector3f
+from mitsuba import Transform4f, Vector3f, UInt32, AnimatedTransform, ScalarTransform4f
+from drjit import Vector3f as sVector3f
+import drjit as dr
 
-import enoki as ek
 
 
 # Convert flat array into a vector of arrays (will be included in next enoki release)
 def ravel(buf, dim=3):
-    idx = dim * UInt32.arange(ek.slices(buf) // dim)
-    return Vector3f(ek.gather(buf, idx), ek.gather(buf, idx + 1), ek.gather(buf, idx + 2))
+    idx = dim * UInt32.arange(dr.slices(buf) // dim)
+    return Vector3f(dr.gather(buf, idx), dr.gather(buf, idx + 1), dr.gather(buf, idx + 2))
 
 
 def ravel_numpy(buf, dim=3):
-    idx = dim * UInt32.arange(ek.slices(buf) // dim)
-    return np.column_stack([ek.gather(buf, idx), ek.gather(buf, idx + 1), ek.gather(buf, idx + 2)])
+    idx = dim * UInt32.arange(dr.slices(buf) // dim)
+    return np.column_stack([dr.gather(buf, idx), dr.gather(buf, idx + 1), dr.gather(buf, idx + 2)])
 
 
 # Return contiguous flattened array (will be included in next enoki release)
 def unravel(source, target, dim=3):
-    idx = UInt32.arange(ek.slices(source))
+    idx = UInt32.arange(dr.slices(source))
     for i in range(dim):
-        ek.scatter(target, source[i], dim * idx + i)
+        dr.scatter(target, source[i], dim * idx + i)
 
 
 def set_parameter(params, v, id):

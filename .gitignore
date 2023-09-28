@@ -8,3 +8,4 @@ runs/
 paths/
 renders*/
 imgui.ini
+*.obj

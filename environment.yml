@@ -3,12 +3,13 @@ dependencies:
   - python >= 3.8
   - pip
   - pip:
-    - numpy
-    - opencv-python
-    - configargparse
-    - imgui
-    - glfw
-    - pyopengl
-    - tensorboard
-    - matplotlib
-    - lpips
+      - numpy
+      - opencv-python
+      - configargparse
+      - imgui
+      - glfw
+      - pyopengl
+      - tensorboard
+      - matplotlib
+      - lpips
+      - mitsuba

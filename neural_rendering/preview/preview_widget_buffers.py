@@ -1,13 +1,13 @@
 import sys
 import os
 
-sys.path += ["..\\..\\ext\\mitsuba2\\dist\\python"]
-os.environ["PATH"] += os.pathsep + "..\\..\\ext\\mitsuba2\\dist"
+# sys.path += ["..\\..\\ext\\mitsuba2\\dist\\python"]
+# os.environ["PATH"] += os.pathsep + "..\\..\\ext\\mitsuba2\\dist"
 
-import mitsuba
+import mitsuba as mi
 
 # Set the desired mitsuba variant
-mitsuba.set_variant('gpu_rgb')
+mi.set_variant('gpu_rgb')
 
 import torch
 import random
