@@ -103,6 +103,11 @@ enum class BSDFFlags : uint32_t {
     /// Non-diffuse scattering into a 2D set of directions
     Glossy       = GlossyReflection | GlossyTransmission,
 
+
+
+    GlossyDelta       = GlossyReflection | GlossyTransmission | DeltaReflection | DeltaTransmission,
+
+
     /// Scattering into a 2D set of directions
     Smooth       = Diffuse | Glossy,
 
@@ -558,10 +563,33 @@ public:
         return has_flag(m_flags, BSDFFlags::NeedsDifferentials);
     }
 
+    bool is_glossy() const{
+        return has_flag(flags(), BSDFFlags::Glossy);
+    }
+
+    const int num_parameters() const { return m_num_parameters; }
+
     /// Number of components this BSDF is comprised of.
     size_t component_count(Mask /*active*/ = true) const {
         return m_components.size();
     }
+
+
+    virtual int num_alternatives() const { return 0; }
+
+    virtual void set_alternative(int index) { }
+
+    virtual Color3f get_reflectance(BSDFContext &ctx, SurfaceInteraction3f& si) const { return Color3f(0.f, 0.f, 0.f); }
+
+    virtual Float get_alpha(SurfaceInteraction3f &si) const { return 0.f; }
+
+    virtual void set_modifier(Color3f modifier) {  }
+
+    const Vector<Float, 4> min_bounds() const { return m_min_bounds; }
+
+    const Vector<Float, 4> range_bounds() const { return m_range_bounds; }    
+
+
 
     /// Return a string identifier
     std::string id() const override { return m_id; }
@@ -602,6 +630,11 @@ protected:
 protected:
     /// Combined flags for all components of this BSDF.
     uint32_t m_flags;
+
+    
+    int m_num_parameters;
+
+    Vector<Float, 4> m_min_bounds, m_range_bounds;
 
     /// Flags for each component of this BSDF.
     std::vector<uint32_t> m_components;
@@ -662,6 +695,10 @@ NAMESPACE_END(mitsuba)
 DRJIT_VCALL_TEMPLATE_BEGIN(mitsuba::BSDF)
     DRJIT_VCALL_METHOD(sample)
     DRJIT_VCALL_METHOD(eval)
+
+    DRJIT_VCALL_METHOD(get_reflectance)
+    DRJIT_VCALL_METHOD(get_alpha)
+
     DRJIT_VCALL_METHOD(eval_null_transmission)
     DRJIT_VCALL_METHOD(pdf)
     DRJIT_VCALL_METHOD(eval_pdf)

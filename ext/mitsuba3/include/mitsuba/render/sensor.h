@@ -147,6 +147,13 @@ public:
         Base::parameters_changed(keys);
     }
 
+    
+    const int num_parameters() const { return m_num_parameters; }
+
+    const Vector3f min_bounds() const { return m_min_bounds; }
+
+    const Vector3f range_bounds() const { return m_range_bounds; }
+
     DRJIT_VCALL_REGISTER(Float, mitsuba::Sensor)
     MI_DECLARE_CLASS()
 protected:
@@ -162,6 +169,8 @@ protected:
     ScalarFloat m_shutter_open_time;
     ref<const Texture> m_srf;
     bool m_alpha;
+    int m_num_parameters;
+    Vector3f m_min_bounds, m_range_bounds;
 };
 
 //! @}

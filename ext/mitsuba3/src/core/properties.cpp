@@ -21,6 +21,7 @@ NAMESPACE_BEGIN(mitsuba)
 using Float         = typename Properties::Float;
 using Color3f       = typename Properties::Color3f;
 using Array3f       = typename Properties::Array3f;
+using Array4f       = typename Properties::Array4f
 using Transform3f   = typename Properties::Transform3f;
 using Transform4f   = typename Properties::Transform4f;
 using TensorHandle  = typename Properties::TensorHandle;
@@ -30,6 +31,7 @@ using VariantType = variant<
     int64_t,
     Float,
     Array3f,
+    Array4f,
     std::string,
     Transform3f,
     Transform4f,

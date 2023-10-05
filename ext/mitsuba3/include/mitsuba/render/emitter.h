@@ -55,6 +55,18 @@ public:
     MI_IMPORT_BASE(Endpoint, m_shape)
     MI_IMPORT_TYPES()
 
+
+    // Mesh is always stored in single precision
+    using InputFloat = float;
+    using InputPoint3f = Point<InputFloat, 3>;
+    using InputVector2f = Vector<InputFloat, 2>;
+    using InputVector3f = Vector<InputFloat, 3>;
+    using InputNormal3f = Normal<InputFloat, 3>;
+
+
+    using FloatStorage = DynamicBuffer<replace_scalar_t<Float, InputFloat>>;
+
+
     /// Is this an environment map light emitter?
     bool is_environment() const {
         return has_flag(m_flags, EmitterFlags::Infinite) &&
@@ -66,6 +78,12 @@ public:
 
     /// Flags for all components combined.
     uint32_t flags(dr::mask_t<Float> /*active*/ = true) const { return m_flags; }
+
+    const Vector<Float, 3> min_bounds() const { return m_min_bounds; }
+
+    const Vector<Float, 3> range_bounds() const { return m_range_bounds; }
+
+    const int num_parameters() const { return m_num_parameters; }
 
     void traverse(TraversalCallback *callback) override;
 
@@ -88,6 +106,10 @@ protected:
 protected:
     /// Combined flags for all properties of this emitter.
     uint32_t m_flags;
+
+
+    Vector<Float, 3> m_min_bounds, m_range_bounds;
+    int m_num_parameters;
 
     /// Sampling weight
     ScalarFloat m_sampling_weight;

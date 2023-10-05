@@ -478,9 +478,9 @@ public:
     const std::vector<ref<Shape>> &shapes() const { return m_shapes; }
 
     /// Return the list of shapes
-    std::vector<ref<Shape>> &shapegroups() { return m_shapegroups; }
+    std::vector<ref<ShapeGroup>> &shapegroups() { return m_shapegroups; }
     /// Return the list of shapes
-    const std::vector<ref<Shape>> &shapegroups() const { return m_shapegroups; }
+    const std::vector<ref<ShapeGroup>> &shapegroups() const { return m_shapegroups; }
 
     /// Return the scene's integrator
     Integrator* integrator() { return m_integrator; }
